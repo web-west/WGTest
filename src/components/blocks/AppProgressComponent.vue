@@ -1,8 +1,11 @@
 <template>
   <div class="progress" :class="{ active: showInfo }">
+    <!-- Заголовок progress -->
     <p v-if="label" class="progress__name">{{ label }}</p>
     <div class="progress__block">
+      <!-- Всплывающая подсказка progress bar -->
       <div ref="progress-popover" class="progress__popover">
+        <!-- Название и проценты progress bar -->
         <span
           class="progress__popover-title"
           :class="{
@@ -12,9 +15,12 @@
         >
           {{ name }} — {{ percent }}
         </span>
+        <!-- Значение progress bar -->
         <span class="progress__popover-count">{{ value }} employees</span>
       </div>
-      <div ref="progress-item" class="progress__item">
+
+      <div ref="progress-bar" class="progress__bar">
+        <!-- Список progress bar -->
         <div
           v-for="(item, index) in formattedOptions"
           :key="index"
@@ -51,18 +57,33 @@ export default {
   },
   data () {
     return {
+      /** Стандартный массив стилей */
       styles: ['low', 'middle', 'high', 'none'],
+
+      /** Контроль видимости подсказки */
       showInfo: false,
+
+      /** Значение процентов для подсказки */
       percent: '',
+
+      /** Значение количества для подсказки */
       value: '',
+
+      /** Значение названия для подсказки */
       name: '',
+
+      /** Значение стиля для подсказки */
       style: '',
+
+      /** Переменная для пользовательских стилей progress bar */
       customStyle: {}
     }
   },
   computed: {
+    /** Вычисляем данных для progress bar (проценты, значение Not Rated, рандомный цвет) */
     formattedOptions () {
       let localSum = 0
+      /** Переобразрвание данных для progress bar */
       let formatOptions = this.options.map(el => {
         localSum += el.value
         const obj = {
@@ -73,6 +94,10 @@ export default {
           percent: (el.value / this.max) * 100 + '%',
           value: el.value
         }
+
+        /**
+         * В случае когда поле стиля пустое будет сгенерирован рандомный цвет progress bar
+         */
         const randomColor = Math.floor(Math.random() * 16777215).toString(16)
 
         if (!this.styles.includes(el.style)) {
@@ -83,6 +108,8 @@ export default {
 
         return obj
       })
+
+      /** Вычисление поля Not Rated */
       if (localSum < this.max) {
         formatOptions.push({
           style: 'none',
@@ -98,9 +125,16 @@ export default {
     }
   },
   methods: {
+    /**
+     * Метод формирования данных и стилей для всплывающей подсказки.
+     * Отдает заголовок, проценты, значение, стиль для выбранного progress bar.
+     * @param {Event} e - Дескриптор события.
+     * @param {Object} item - Данные progress bar.
+     */
     hoverProgressBlock (e, { percent, style, customStyle, name, value }) {
       this.percent = percent
       this.style = style
+      /** Определение стиля для всплывающей подсказки */
       if (!this.styles.includes(style)) {
         this.customStyle.color = style || customStyle.backgroundColor
       } else {
@@ -116,6 +150,7 @@ export default {
       const progressPopoverWidth = popover.offsetWidth
       const progressColorWidth = e.target.offsetWidth
 
+      /** Позиционирование всплывающей подсказки */
       if (position + progressPopoverWidth > progressItem.offsetWidth) {
         popover.style.left = position + progressColorWidth + 'px'
         popover.style.transform = 'translate(-100%, -50%)'
@@ -129,11 +164,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$low: #45e596;
-$middle: #ffc44c;
-$high: #ff4c4c;
-$none: #f2f2f2;
-$grey: #808080;
+@import '@/assets/style/variables.scss';
 .overlay {
   position: absolute;
   opacity: 0;
@@ -175,8 +206,9 @@ $grey: #808080;
   &__name {
     margin-right: 30px;
     min-width: 120px;
+    font-size: 16px;
   }
-  &__item {
+  &__bar {
     display: flex;
     overflow: hidden;
     width: 274px;
