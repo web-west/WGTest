@@ -10,12 +10,12 @@ export default [
       {
         style: 'middle',
         name: 'Middle',
-        value: 39
+        value: 78
       },
       {
         style: 'high',
         name: 'High',
-        value: 60
+        value: 120
       }
     ]
   },
@@ -45,17 +45,17 @@ export default [
       {
         style: 'low',
         name: 'Low',
-        value: 20
+        value: 40
       },
       {
         style: 'middle',
         name: 'Middle',
-        value: 72
+        value: 144
       },
       {
         style: 'high',
         name: 'High',
-        value: 8
+        value: 16
       }
     ]
   },
@@ -65,17 +65,17 @@ export default [
       {
         style: 'low',
         name: 'Low',
-        value: 70
+        value: 140
       },
       {
         style: '#bee5eb',
         name: 'Middle',
-        value: 20
+        value: 40
       },
       {
         style: '',
         name: 'High',
-        value: 8
+        value: 16
       }
     ]
   }

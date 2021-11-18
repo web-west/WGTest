@@ -1,7 +1,7 @@
 <template>
   <section class="home">
     <!-- Список progress -->
-    <AppProgress
+    <app-progress
       v-for="(data, index) in progressData"
       :key="index"
       :label="data.label"

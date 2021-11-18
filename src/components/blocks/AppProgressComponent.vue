@@ -41,15 +41,18 @@
 <script>
 export default {
   props: {
+    /** Данные для заполнения progress */
     options: {
       type: [Object, Array],
       default: null,
       required: true
     },
+    /** Название progress */
     label: {
       type: String,
       default: ''
     },
+    /** Максимальное значение progress */
     max: {
       type: Number,
       default: 100
@@ -146,7 +149,7 @@ export default {
       let position = e.target.offsetLeft
       let popover = this.$refs['progress-popover']
 
-      const progressItem = this.$refs['progress-item']
+      const progressItem = this.$refs['progress-bar']
       const progressPopoverWidth = popover.offsetWidth
       const progressColorWidth = e.target.offsetWidth
 
@@ -236,6 +239,9 @@ export default {
     }
     &_none {
       background: $none;
+    }
+    &:not(:last-child) {
+      margin-right: 1px;
     }
   }
   &__popover {
